@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投資アシスタント</title>
+
+<style>
+body{
+  background:#0f172a;
+  color:#fff;
+  font-family:sans-serif;
+  padding:10px;
+}
+
+h2{
+  text-align:center;
+}
+
+.card{
+  background:#1e293b;
+  padding:12px;
+  border-radius:10px;
+  margin:10px 0;
+}
+
+input,button{
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+  border:none;
+  border-radius:6px;
+}
+
+.primary{
+  background:#22c55e;
+}
+
+.action{
+  background:#2563eb;
+}
+
+.result{
+  font-size:22px;
+  text-align:center;
+  margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>📊 投資アシスタント</h2>
+
+<div class="card">
+
+<div style="font-size:12px;">※迷ったときだけ使う</div>
+
+<input id="name" placeholder="銘柄">
+<input id="price" type="number" placeholder="価格">
+
+<button class="primary" onclick="autoSetting()">初心者モード</button>
+
+<button class="action" onclick="runAI()">AI判定</button>
+
+<div id="result" class="result"></div>
+<div id="typeBox"></div>
+<div id="reason"></div>
+
+</div>
+
+<script>
+
+function detectType(name){
+  name=name.toLowerCase();
+  if(name.includes("ionq")) return "爆発";
+  if(name.includes("信越")) return "成長";
+  return "成長";
+}
+
+function autoSetting(){
+  let p=Number(price.value);
+  let t=detectType(name.value);
+
+  let take=1.25;
+  let stop=0.88;
+
+  if(t=="爆発"){take=1.3;stop=0.85;}
+
+  alert("利確："+Math.round(p*take)+"\n損切："+Math.round(p*stop));
+}
+
+function runAI(){
+  let p=Number(price.value);
+
+  let res="🟡 様子見";
+  let reason="中立";
+
+  if(p<40){res="✅ 買い";reason="割安";}
+  else if(p>60){res="❌ 注意";reason="高値圏";}
+
+  result.innerHTML=res;
+  reasonBox.innerHTML=reason;
+}
+
+</script>
+
+</body>
+</html>
+``
